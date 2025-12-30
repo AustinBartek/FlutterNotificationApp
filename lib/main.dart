@@ -46,8 +46,10 @@ class RecurringNotificationSettings {
   }
 
   static RecurringNotificationSettings deserialize(String serialized) {
-    Map data = jsonDecode(serialized);
-    List<double> times = data['times'];
+    final Map<String, dynamic> data = jsonDecode(serialized);
+    final List<double> times = (data['times'] as List)
+        .map((e) => e.toDouble())
+        .toList() as List<double>;
     return RecurringNotificationSettings(times: times);
   }
 }
@@ -67,7 +69,7 @@ class DatabaseManager {
         );
       },
 
-      version: 1,
+      version: 2,
     );
   }
 
@@ -209,14 +211,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // REQUIRED for desktop
-  sqfliteFfiInit();
-  databaseFactory = databaseFactoryFfi;
+  //sqfliteFfiInit();
+  //databaseFactory = databaseFactoryFfi;
 
   await DatabaseManager.init();
   await NotificationManager.init();
 
-  runApp(DevicePreview(builder: (context) => MyApp()));
-  //runApp(MyApp());
+  //runApp(DevicePreview(builder: (context) => MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -439,7 +441,9 @@ class _ReminderCreationPageState extends State<ReminderCreationPage> {
         }
 
         final RecurringNotificationSettings recurSettings =
-            RecurringNotificationSettings(times: [12, 22.8, 22.85, 22.9, 22.95, 22.99, 23.05, 23.1, 23.12, 23.15, for (double i = 23.15; i < 24; i+=0.05) i]);
+            RecurringNotificationSettings(
+              times: [for (double i = 0; i < 24; i += 0.05) i],
+            );
 
         Reminder reminderToAdd = Reminder(
           title: title,
@@ -454,11 +458,9 @@ class _ReminderCreationPageState extends State<ReminderCreationPage> {
 
     return SafeArea(
       bottom: false,
-      child: Expanded(
-        child: Container(
-          color: theme.colorScheme.secondaryContainer,
-          child: Column(children: [titleInput, contentInput, addButton]),
-        ),
+      child: Container(
+        color: theme.colorScheme.secondaryContainer,
+        child: Column(children: [titleInput, contentInput, addButton]),
       ),
     );
   }
