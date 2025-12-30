@@ -439,7 +439,7 @@ class _ReminderCreationPageState extends State<ReminderCreationPage> {
         }
 
         final RecurringNotificationSettings recurSettings =
-            RecurringNotificationSettings(times: [12, 22.8, 22.85, 22.9, 22.95, 22.99, 23.05, 23.1, 23.12, 23.15]);
+            RecurringNotificationSettings(times: [12, 22.8, 22.85, 22.9, 22.95, 22.99, 23.05, 23.1, 23.12, 23.15, for (double i = 23.15; i < 24; i+=0.05) i]);
 
         Reminder reminderToAdd = Reminder(
           title: title,
