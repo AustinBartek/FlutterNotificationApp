@@ -13,3 +13,6 @@ workflows:
       - name: Build iOS (no code signing)
         script: |
           flutter build ios --no-codesign
+
+    artifacts:
+      - build/ios/iphoneos/**
