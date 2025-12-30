@@ -74,7 +74,7 @@ class DatabaseManager {
   }
 
   static Future<void> insertReminder(Reminder reminder) async {
-    NotificationManager.addRecurringNotification(reminder);
+    await NotificationManager.addRecurringNotification(reminder);
     final db = database!;
 
     await db.insert(
@@ -85,7 +85,7 @@ class DatabaseManager {
   }
 
   static Future<void> updateReminder(Reminder reminder) async {
-    NotificationManager.updateRecurringNotifications(reminder);
+    await NotificationManager.updateRecurringNotifications(reminder);
     final db = database!;
 
     await db.update(
@@ -118,7 +118,7 @@ class DatabaseManager {
   }
 
   static Future<void> deleteReminder(Reminder reminder) async {
-    NotificationManager.removeRecurringNotification(reminder);
+    await NotificationManager.removeRecurringNotification(reminder);
     final db = database!;
     await db.delete('reminders', where: 'id = ?', whereArgs: [reminder.id]);
   }
@@ -442,7 +442,7 @@ class _ReminderCreationPageState extends State<ReminderCreationPage> {
 
         final RecurringNotificationSettings recurSettings =
             RecurringNotificationSettings(
-              times: [for (double i = 0; i < 24; i += 0.05) i],
+              times: [for (double i = 0; i < 24; i += 0.66) i],
             );
 
         Reminder reminderToAdd = Reminder(
