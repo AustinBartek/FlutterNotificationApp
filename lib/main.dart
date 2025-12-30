@@ -47,9 +47,9 @@ class RecurringNotificationSettings {
 
   static RecurringNotificationSettings deserialize(String serialized) {
     final Map<String, dynamic> data = jsonDecode(serialized);
-    final List<double> times = (data['times'] as List)
-        .map((e) => e.toDouble())
-        .toList() as List<double>;
+    final List<double> times =
+        (data['times'] as List).map((e) => e.toDouble()).toList()
+            as List<double>;
     return RecurringNotificationSettings(times: times);
   }
 }
@@ -442,7 +442,7 @@ class _ReminderCreationPageState extends State<ReminderCreationPage> {
 
         final RecurringNotificationSettings recurSettings =
             RecurringNotificationSettings(
-              times: [for (double i = 23; i < 24; i += 0.1) i],
+              times: [23.9],
             );
 
         Reminder reminderToAdd = Reminder(
@@ -458,9 +458,18 @@ class _ReminderCreationPageState extends State<ReminderCreationPage> {
 
     return SafeArea(
       bottom: false,
-      child: Container(
-        color: theme.colorScheme.secondaryContainer,
-        child: Column(children: [titleInput, contentInput, addButton]),
+      child: SingleChildScrollView(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            titleInput,
+            SizedBox(height: 16),
+            contentInput,
+            SizedBox(height: 16),
+            addButton,
+          ],
+        ),
       ),
     );
   }
