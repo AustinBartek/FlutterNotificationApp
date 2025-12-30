@@ -12,4 +12,4 @@ workflows:
 
       - name: Build iOS (no code signing)
         script: |
-          flutter build ios
+          flutter build ios --no-codesign
